@@ -14,19 +14,25 @@ ENV APP_PACKAGES="xvfb ttf-freefont fontconfig dbus curl-dev build-base git open
     GIT_DIR=/rails \
     SECRET_KEY_BASE="please-overwrite-this-in-your-docker-env"
 
-RUN apk add --update --upgrade $APP_PACKAGES && \
-    apk add --update --upgrade $APP_EDGE_PACKAGES --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted && \
-    apk add $RUBY_PACKAGES && \
-    npm install -g $NPM_PACKAGES && \
-    gem install $GEM_PACKAGES
-
 ADD conf/.bowerrc /root/.bowerrc
 ADD conf/supervisord.conf /etc/supervisord.conf
 ADD support/* /support/
-RUN mv /usr/bin/wkhtmltopdf /usr/bin/wkhtmltopdf-origin && \
-    mv /usr/bin/wkhtmltoimage /usr/bin/wkhtmltoimage-origin && \
-    mv /support/wkhtmlto* /usr/bin/ && \
-    chmod +x /usr/bin/wkhtmlto*
+
+RUN apk add \
+        --update \
+        --upgrade $APP_PACKAGES \
+    && apk add \
+        --update \
+        --upgrade $APP_EDGE_PACKAGES \
+        --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ \
+        --allow-untrusted \
+    && apk add $RUBY_PACKAGES \
+    && npm install -g $NPM_PACKAGES \
+    && gem install $GEM_PACKAGES \
+    && mv /usr/bin/wkhtmltopdf /usr/bin/wkhtmltopdf-origin \
+    && mv /usr/bin/wkhtmltoimage /usr/bin/wkhtmltoimage-origin \
+    && mv /support/wkhtmlto* /usr/bin/ \
+    && chmod +x /usr/bin/wkhtmlto*
 
 EXPOSE 80
 
