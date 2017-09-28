@@ -1,10 +1,10 @@
-FROM alpine:3.5
+FROM alpine:3.6
 
 MAINTAINER Lutz Selke <ls@hfci.de>
 
 WORKDIR /rails
 
-ENV APP_PACKAGES="libffi-dev xvfb ttf-freefont fontconfig dbus curl-dev build-base git openssh zlib-dev libxml2-dev libxslt-dev tzdata yaml-dev sqlite-dev mysql-dev mysql-client nodejs imagemagick-dev supervisor sphinx" \
+ENV APP_PACKAGES="libffi-dev xvfb ttf-freefont fontconfig dbus curl-dev build-base git openssh zlib-dev libxml2-dev libxslt-dev tzdata yaml-dev sqlite-dev mysql-dev mysql-client nodejs nodejs-npm imagemagick-dev supervisor sphinx" \
     APP_EDGE_PACKAGES="qt5-qtbase wkhtmltopdf" \
     RUBY_PACKAGES="ruby-dev ruby ruby-io-console ruby-rdoc ruby-bundler ruby-bigdecimal ruby-irb ruby-json ruby-libs ruby-rake" \
     NPM_PACKAGES="bower yarn" \
